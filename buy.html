@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购买 Omege UOS · 联系QQ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0a0c10;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        /* 神经网络背景 */
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(0,120,212,0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 70% 60%, rgba(127,186,0,0.1) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .neural-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,120,212,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,120,212,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 48px;
+            background: rgba(10,12,16,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,120,212,0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0078d4, #7fba00);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            transform: rotate(5deg);
+            box-shadow: 0 4px 15px rgba(0,120,212,0.4);
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #0078d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0078d4;
+        }
+
+        /* 语言切换 */
+        .lang-switch {
+            display: flex;
+            gap: 12px;
+        }
+
+        .lang-switch a {
+            color: #8a8f99;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .lang-switch a.active {
+            color: #0078d4;
+        }
+
+        /* 主容器 */
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+        }
+
+        /* 购买卡片 */
+        .buy-card {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,120,212,0.3);
+            border-radius: 40px;
+            padding: 60px 48px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .product-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+            animation: float 3s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .product-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #0078d4, #7fba00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .product-price {
+            font-size: 36px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 32px;
+        }
+
+        .product-price small {
+            font-size: 16px;
+            color: #8a8f99;
+            font-weight: 400;
+        }
+
+        .divider {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0078d4, transparent);
+            margin: 32px auto;
+        }
+
+        .contact-section {
+            background: rgba(0,120,212,0.1);
+            border: 1px solid rgba(0,120,212,0.3);
+            border-radius: 30px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .contact-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #8a8f99;
+            margin-bottom: 12px;
+        }
+
+        .qq-number {
+            font-size: 56px;
+            font-weight: 800;
+            color: #0078d4;
+            letter-spacing: 4px;
+            margin-bottom: 16px;
+            text-shadow: 0 0 20px rgba(0,120,212,0.5);
+        }
+
+        .qq-description {
+            color: #8a8f99;
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        .qq-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #0078d4;
+            color: white;
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,120,212,0.3);
+        }
+
+        .qq-button:hover {
+            background: #0060b0;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,120,212,0.5);
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin: 32px 0;
+            text-align: left;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #8a8f99;
+        }
+
+        .feature-item span {
+            color: #0078d4;
+            font-size: 20px;
+        }
+
+        .back-link {
+            margin-top: 32px;
+        }
+
+        .back-link a {
+            color: #8a8f99;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .back-link a:hover {
+            color: #0078d4;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0,120,212,0.2);
+            padding: 24px;
+            text-align: center;
+            color: #4a4f5a;
+            font-size: 14px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 16px 24px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .buy-card {
+                padding: 40px 24px;
+            }
+
+            .product-title {
+                font-size: 32px;
+            }
+
+            .qq-number {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-bg"></div>
+    <div class="neural-grid"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">Ω</div>
+            <div class="logo-text">Omege UOS</div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="#features">特性</a>
+            <a href="#docs">文档</a>
+            <a href="buy.html">购买</a>
+        </div>
+        <div class="lang-switch">
+            <a href="/en-us/index.html">EN</a>
+            <a href="/zh-hans/index.html" class="active">中文</a>
+        </div>
+    </nav>
+
+    <!-- 购买内容 -->
+    <div class="container">
+        <div class="buy-card">
+            <div class="product-icon">🛒</div>
+            <h1 class="product-title">Omege UOS</h1>
+            <div class="product-price">
+                ¥ 499 <small>永久授权</small>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <span>✓</span> 轻量级自制操作系统
+                </div>
+                <div class="feature-item">
+                    <span>✓</span> 深度学习优化内核
+                </div>
+                <div class="feature-item">
+                    <span>✓</span> 完整文档与技术支持
+                </div>
+                <div class="feature-item">
+                    <span>✓</span> 永久免费更新
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- QQ联系方式 -->
+            <div class="contact-section">
+                <div class="contact-label">📞 联系购买</div>
+                <div class="qq-number">347709188</div>
+                <div class="qq-description">
+                    点击下方按钮打开QQ，添加好友咨询购买<br>
+                    请备注"Omege UOS购买"
+                </div>
+                <a href="https://qm.qq.com/cgi-bin/qm/qr?k=347709188&noverify=0" class="qq-button" target="_blank">
+                    <span>💬</span>
+                    <span>打开QQ聊天</span>
+                </a>
+            </div>
+
+            <div class="back-link">
+                <a href="index.html">← 返回主页</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2026 Omege UOS · 购买咨询 QQ: 347709188</p>
+    </footer>
+</body>
+</html>

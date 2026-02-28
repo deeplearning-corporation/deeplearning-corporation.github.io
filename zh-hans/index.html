@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omege UOS · 主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0a0c10;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 神经网络背景 */
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(0,120,212,0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 70% 60%, rgba(127,186,0,0.1) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .neural-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,120,212,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,120,212,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 48px;
+            background: rgba(10,12,16,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,120,212,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0078d4, #7fba00);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            transform: rotate(5deg);
+            box-shadow: 0 4px 15px rgba(0,120,212,0.4);
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #0078d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0078d4;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0078d4;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* 语言切换 */
+        .lang-switch {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .lang-switch a {
+            color: #8a8f99;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .lang-switch a.active {
+            color: #0078d4;
+            background: rgba(0,120,212,0.1);
+        }
+
+        .lang-switch a:hover {
+            color: white;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            margin-bottom: 80px;
+            min-height: 500px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0,120,212,0.2);
+            border: 1px solid #0078d4;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-size: 14px;
+            color: #0078d4;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff, #0078d4, #7fba00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: #8a8f99;
+            margin-bottom: 32px;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #0078d4;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,120,212,0.4);
+        }
+
+        .btn-primary:hover {
+            background: #0060b0;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,120,212,0.6);
+        }
+
+        .btn-outline {
+            border: 1px solid #0078d4;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0,120,212,0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            height: 400px;
+        }
+
+        .neural-network {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="30" fill="none" stroke="%230078d4" stroke-width="1" opacity="0.3"/><circle cx="40" cy="60" r="15" fill="none" stroke="%237fba00" stroke-width="1" opacity="0.3"/><circle cx="160" cy="140" r="20" fill="none" stroke="%23ffb900" stroke-width="1" opacity="0.3"/><line x1="100" y1="100" x2="40" y2="60" stroke="%230078d4" stroke-width="1" opacity="0.2"/><line x1="100" y1="100" x2="160" y2="140" stroke="%237fba00" stroke-width="1" opacity="0.2"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        /* 特性卡片 */
+        .section-title {
+            font-size: 36px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, #0078d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #8a8f99;
+            margin-bottom: 48px;
+            font-size: 18px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(0,120,212,0.2);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #0078d4;
+            box-shadow: 0 20px 40px rgba(0,120,212,0.2);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0078d4, #7fba00);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .feature-desc {
+            color: #8a8f99;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* 文档卡片 */
+        .docs-section {
+            margin: 60px 0;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .doc-card {
+            background: rgba(0,120,212,0.05);
+            border: 1px solid rgba(0,120,212,0.2);
+            border-radius: 20px;
+            padding: 32px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(0,120,212,0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            border-color: #0078d4;
+            box-shadow: 0 15px 30px rgba(0,120,212,0.3);
+        }
+
+        .doc-card:hover::before {
+            opacity: 1;
+        }
+
+        .doc-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .doc-desc {
+            color: #8a8f99;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .doc-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: #0078d4;
+        }
+
+        .doc-badge {
+            background: #0078d4;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0,120,212,0.3);
+            padding: 48px 0 24px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 48px;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #0078d4;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            color: #8a8f99;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: #0078d4;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            margin-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #4a4f5a;
+            font-size: 14px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 24px;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-bg"></div>
+    <div class="neural-grid"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">Ω</div>
+            <div class="logo-text">Omege UOS</div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="#features">特性</a>
+            <a href="#docs">文档</a>
+            <a href="buy.html">购买</a>
+        </div>
+        <div class="lang-switch">
+            <a href="/en-us/index.html">EN</a>
+            <a href="/zh-hans/index.html" class="active">中文</a>
+        </div>
+    </nav>
+
+    <!-- 主要内容区 -->
+    <div class="container">
+        <!-- Hero 区域 -->
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">⚡ Omege UOS · 自制操作系统</div>
+                <h1 class="hero-title">Omege UOS</h1>
+                <p class="hero-subtitle">轻量、高效的自制操作系统，集成深度学习优化与现代架构设计</p>
+                <div class="hero-buttons">
+                    <a href="buy.html" class="btn btn-primary">立即购买</a>
+                    <a href="#docs" class="btn btn-outline">阅读文档</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="neural-network"></div>
+            </div>
+        </div>
+
+        <!-- 文档区域（可打开文档） -->
+        <div id="docs" class="docs-section">
+            <h2 class="section-title">文档中心</h2>
+            <p class="section-subtitle">Omege UOS 完整文档与使用指南</p>
+            
+            <div class="docs-grid">
+                <!-- Word 文档卡片（可下载/打开） -->
+                <a href="/docs/docs.docx" class="doc-card" download>
+                    <div class="doc-icon">📘</div>
+                    <div class="doc-title">用户指南</div>
+                    <div class="doc-desc">包含 Omege UOS 的安装、配置和高级使用的完整文档</div>
+                    <div class="doc-meta">
+                        <span>📄 docs.docx</span>
+                        <span>⬇️ 下载文档</span>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <span class="doc-badge">更新于 2026-02-28</span>
+                    </div>
+                </a>
+
+                <!-- API 文档卡片 -->
+                <a href="#" class="doc-card">
+                    <div class="doc-icon">⚙️</div>
+                    <div class="doc-title">API 参考</div>
+                    <div class="doc-desc">为开发者提供的详细API文档，帮助您在Omege UOS上构建应用</div>
+                    <div class="doc-meta">
+                        <span>🌐 在线浏览</span>
+                        <span>→</span>
+                    </div>
+                </a>
+
+                <!-- 开发指南卡片 -->
+                <a href="#" class="doc-card">
+                    <div class="doc-icon">🔧</div>
+                    <div class="doc-title">开发者指南</div>
+                    <div class="doc-desc">学习如何为Omege UOS贡献代码和构建自定义内核</div>
+                    <div class="doc-meta">
+                        <span>📚 GitHub</span>
+                        <span>→</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 特性卡片 -->
+        <h2 class="section-title">核心特性</h2>
+        <p class="section-subtitle">Omege UOS 的独特之处</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">轻量级内核</h3>
+                <p class="feature-desc">极简设计，只包含必要组件，启动时间小于2秒</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3 class="feature-title">深度学习就绪</h3>
+                <p class="feature-desc">针对神经网络推理和训练工作负载预优化</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">安全设计</h3>
+                <p class="feature-desc">内置内存保护和进程隔离机制</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Omege UOS</h4>
+                <ul>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">新闻动态</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>资源</h4>
+                <ul>
+                    <li><a href="#docs">文档中心</a></li>
+                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#">社区</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>法律</h4>
+                <ul>
+                    <li><a href="#">隐私政策</a></li>
+                    <li><a href="#">使用条款</a></li>
+                    <li><a href="#">许可证</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Omege UOS · 操作系统</p>
+        </div>
+    </footer>
+</body>
+</html>
