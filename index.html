@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Learning Corporation · 首页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0a0c10;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 神经网络背景动画 */
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 30% 40%, rgba(0,120,212,0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 70% 60%, rgba(127,186,0,0.1) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .neural-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,120,212,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,120,212,0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 48px;
+            background: rgba(10,12,16,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,120,212,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0078d4, #7fba00);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            transform: rotate(5deg);
+            box-shadow: 0 4px 15px rgba(0,120,212,0.4);
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #0078d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0078d4;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0078d4;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            margin-bottom: 80px;
+            min-height: 500px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0,120,212,0.2);
+            border: 1px solid #0078d4;
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-size: 14px;
+            color: #0078d4;
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff, #0078d4, #7fba00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: #8a8f99;
+            margin-bottom: 32px;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #0078d4;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,120,212,0.4);
+        }
+
+        .btn-primary:hover {
+            background: #0060b0;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,120,212,0.6);
+        }
+
+        .btn-outline {
+            border: 1px solid #0078d4;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(0,120,212,0.1);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            flex: 1;
+            position: relative;
+            height: 400px;
+        }
+
+        .neural-network {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="30" fill="none" stroke="%230078d4" stroke-width="1" opacity="0.3"/><circle cx="40" cy="60" r="15" fill="none" stroke="%237fba00" stroke-width="1" opacity="0.3"/><circle cx="160" cy="140" r="20" fill="none" stroke="%23ffb900" stroke-width="1" opacity="0.3"/><line x1="100" y1="100" x2="40" y2="60" stroke="%230078d4" stroke-width="1" opacity="0.2"/><line x1="100" y1="100" x2="160" y2="140" stroke="%237fba00" stroke-width="1" opacity="0.2"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        /* 特性卡片 */
+        .section-title {
+            font-size: 36px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, #0078d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #8a8f99;
+            margin-bottom: 48px;
+            font-size: 18px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(0,120,212,0.2);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #0078d4;
+            box-shadow: 0 20px 40px rgba(0,120,212,0.2);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0078d4, #7fba00);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .feature-desc {
+            color: #8a8f99;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* 产品展示区 */
+        .products-section {
+            margin-bottom: 80px;
+        }
+
+        .product-showcase {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .product-item {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+
+        .product-item:hover {
+            border-color: #0078d4;
+            transform: scale(1.02);
+        }
+
+        .product-image {
+            height: 160px;
+            background: linear-gradient(135deg, #1a2a3a, #0a1a2a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #0078d4;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .product-info {
+            padding: 24px;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: white;
+        }
+
+        .product-desc {
+            font-size: 14px;
+            color: #8a8f99;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0,120,212,0.3);
+            padding: 48px 0 24px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 48px;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #0078d4;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            color: #8a8f99;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: #0078d4;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            margin-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #4a4f5a;
+            font-size: 14px;
+        }
+
+        /* 语言切换 */
+        .lang-switch {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .lang-switch a {
+            color: #8a8f99;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .lang-switch a.active {
+            color: #0078d4;
+            background: rgba(0,120,212,0.1);
+        }
+
+        .lang-switch a:hover {
+            color: white;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 16px 24px;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .product-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-bg"></div>
+    <div class="neural-grid"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">Ω</div>
+            <div class="logo-text">Deep Learning Corp</div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="#products">产品</a>
+            <a href="#research">研究</a>
+            <a href="#about">关于</a>
+            <a href="#contact">联系</a>
+        </div>
+        <div class="lang-switch">
+            <a href="#" class="active">中文</a>
+            <a href="#">EN</a>
+        </div>
+    </nav>
+
+    <!-- 主要内容区 -->
+    <div class="container">
+        <!-- Hero 区域 -->
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">⚡ Omege UOS 深度学习企业</div>
+                <h1 class="hero-title">Deep Learning Corporation</h1>
+                <p class="hero-subtitle">专注于下一代神经网络架构与自制操作系统深度融合，打造高效、可解释的AI解决方案。</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">探索产品</a>
+                    <a href="#" class="btn btn-outline">查看文档</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="neural-network"></div>
+            </div>
+        </div>
+
+        <!-- 特性卡片 -->
+        <h2 class="section-title">核心技术</h2>
+        <p class="section-subtitle">将深度学习与操作系统底层结合，释放硬件全部潜力</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3 class="feature-title">神经架构搜索</h3>
+                <p class="feature-desc">自动化神经网络设计，针对Omege UOS内核优化，提升推理效率300%</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">内核级加速</h3>
+                <p class="feature-desc">深度学习算子直接集成于操作系统内核，减少用户态与内核态切换开销</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">隐私计算</h3>
+                <p class="feature-desc">基于TEE的联邦学习框架，数据不出本地即可完成模型训练</p>
+            </div>
+        </div>
+
+        <!-- 产品展示区 -->
+        <div id="products" class="products-section">
+            <h2 class="section-title">产品矩阵</h2>
+            <p class="section-subtitle">为不同场景打造的深度学习解决方案</p>
+            
+            <div class="product-showcase">
+                <div class="product-item">
+                    <div class="product-image">🧬</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Omege-Neuron</h3>
+                        <p class="product-desc">边缘计算推理芯片，支持INT8/FP8混合精度，功耗仅2W</p>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <div class="product-image">🌐</div>
+                    <div class="product-info">
+                        <h3 class="product-name">DL-Studio</h3>
+                        <p class="product-desc">可视化深度学习开发环境，内置Omege UOS专用编译器</p>
+                    </div>
+                </div>
+                <div class="product-item">
+                    <div class="product-image">⚙️</div>
+                    <div class="product-info">
+                        <h3 class="product-name">Core-AI</h3>
+                        <p class="product-desc">操作系统级AI服务框架，提供标准化推理接口</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Deep Learning Corp</h4>
+                <ul>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">新闻动态</a></li>
+                    <li><a href="#">加入我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>产品</h4>
+                <ul>
+                    <li><a href="#">Omege-Neuron</a></li>
+                    <li><a href="#">DL-Studio</a></li>
+                    <li><a href="#">Core-AI</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>资源</h4>
+                <ul>
+                    <li><a href="#">文档中心</a></li>
+                    <li><a href="#">API参考</a></li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>联系</h4>
+                <ul>
+                    <li><a href="#">contact@dl-corp.io</a></li>
+                    <li><a href="#">开发者社区</a></li>
+                    <li><a href="#">技术支持</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Deep Learning Corporation · 基于 Omege UOS 构建 · 京ICP备2026xxxx号</p>
+        </div>
+    </footer>
+</body>
+</html>

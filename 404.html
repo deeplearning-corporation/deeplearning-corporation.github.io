@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 · Deep Learning Corporation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'SF Pro Display', -apple-system, BlinkMacSystemFont, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #0a0c10;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+
+        /* 神经网络背景 */
+        .neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(0,120,212,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 70%, rgba(127,186,0,0.08) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .neural-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0,120,212,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,120,212,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 48px;
+            background: rgba(10,12,16,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,120,212,0.3);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #0078d4, #7fba00);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            transform: rotate(5deg);
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .nav-links a {
+            color: #8a8f99;
+            text-decoration: none;
+            margin-left: 24px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #0078d4;
+        }
+
+        /* 主容器 */
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+        }
+
+        .error-card {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(255,255,255,0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,120,212,0.3);
+            border-radius: 40px;
+            padding: 60px 48px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .error-code {
+            font-size: 160px;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #0078d4, #7fba00, #ffb900);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 16px;
+            letter-spacing: 8px;
+            text-shadow: 0 0 30px rgba(0,120,212,0.3);
+        }
+
+        .error-title {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .error-message {
+            font-size: 18px;
+            color: #8a8f99;
+            margin-bottom: 40px;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .neural-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .divider-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0078d4, transparent);
+        }
+
+        .divider-icon {
+            color: #0078d4;
+            font-size: 20px;
+            opacity: 0.8;
+        }
+
+        .suggestion-box {
+            background: rgba(0,120,212,0.05);
+            border: 1px solid rgba(0,120,212,0.2);
+            border-radius: 24px;
+            padding: 32px;
+            margin: 32px 0;
+        }
+
+        .suggestion-title {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #0078d4;
+            margin-bottom: 20px;
+        }
+
+        .suggestion-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .suggestion-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .suggestion-link:hover {
+            background: rgba(0,120,212,0.1);
+            border-color: #0078d4;
+            transform: translateX(10px);
+        }
+
+        .link-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,120,212,0.1);
+            border-radius: 10px;
+        }
+
+        .link-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .link-text .main {
+            font-size: 18px;
+            font-weight: 500;
+            color: white;
+        }
+
+        .link-text .sub {
+            font-size: 13px;
+            color: #8a8f99;
+        }
+
+        .link-arrow {
+            color: #0078d4;
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .suggestion-link:hover .link-arrow {
+            opacity: 1;
+        }
+
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #0078d4;
+            color: white;
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 40px;
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 24px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,120,212,0.3);
+        }
+
+        .home-button:hover {
+            background: #0060b0;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,120,212,0.5);
+        }
+
+        /* 页脚 */
+        .footer {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0,120,212,0.2);
+            padding: 24px;
+            text-align: center;
+            color: #4a4f5a;
+            font-size: 14px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 16px 24px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .nav-links a {
+                margin: 0 12px;
+            }
+
+            .error-card {
+                padding: 40px 24px;
+            }
+
+            .error-code {
+                font-size: 100px;
+            }
+
+            .error-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="neural-bg"></div>
+    <div class="neural-grid"></div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon">Ω</div>
+            <div class="logo-text">Deep Learning Corp</div>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">首页</a>
+            <a href="#">产品</a>
+            <a href="#">研究</a>
+            <a href="#">文档</a>
+        </div>
+    </nav>
+
+    <!-- 404 主内容 -->
+    <div class="container">
+        <div class="error-card">
+            <div class="error-code">404</div>
+            <div class="error-title">页面未找到</div>
+            <div class="error-message">
+                您访问的页面可能已被移除、更名或暂时不可用。
+                神经网络正在重新路由您的请求...
+            </div>
+
+            <div class="neural-divider">
+                <div class="divider-line"></div>
+                <div class="divider-icon">⚡</div>
+                <div class="divider-line"></div>
+            </div>
+
+            <!-- 建议链接 -->
+            <div class="suggestion-box">
+                <div class="suggestion-title">推荐路径</div>
+                <div class="suggestion-links">
+                    <a href="index.html" class="suggestion-link">
+                        <div class="link-icon">🏠</div>
+                        <div class="link-text">
+                            <div class="main">返回首页</div>
+                            <div class="sub">index.html · 主页</div>
+                        </div>
+                        <div class="link-arrow">→</div>
+                    </a>
+                    <a href="#" class="suggestion-link">
+                        <div class="link-icon">📁</div>
+                        <div class="link-text">
+                            <div class="main">产品中心</div>
+                            <div class="sub">查看深度学习产品矩阵</div>
+                        </div>
+                        <div class="link-arrow">→</div>
+                    </a>
+                    <a href="#" class="suggestion-link">
+                        <div class="link-icon">📄</div>
+                        <div class="link-text">
+                            <div class="main">文档中心</div>
+                            <div class="sub">API参考与开发指南</div>
+                        </div>
+                        <div class="link-arrow">→</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 返回主页按钮 -->
+            <a href="index.html" class="home-button">
+                <span>←</span>
+                <span>返回主页</span>
+            </a>
+
+            <!-- 错误信息 -->
+            <div style="margin-top: 32px; font-size: 12px; color: #4a4f5a; font-family: monospace;">
+                <div>error: 0x80070004 · deeplearning-corporation.github.io/404.html</div>
+                <div style="margin-top: 8px;">timestamp: 2026-02-28 15:30:45 UTC+8</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2026 Deep Learning Corporation  -  Omege UOS · 404 Not Found</p>
+    </footer>
+</body>
+</html>
