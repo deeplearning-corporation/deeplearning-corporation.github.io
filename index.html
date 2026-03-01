@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deep Learning Corporation · 首页</title>
+    <title>Omege UOS · 主页</title>
     <style>
         * {
             margin: 0;
@@ -19,17 +19,16 @@
             overflow-x: hidden;
         }
 
-        /* 神经网络背景动画 */
+        /* 神经网络背景 */
         .neural-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
             background: radial-gradient(circle at 30% 40%, rgba(0,120,212,0.15) 0%, transparent 40%),
                         radial-gradient(circle at 70% 60%, rgba(127,186,0,0.1) 0%, transparent 40%);
-            pointer-events: none;
+            z-index: -1;
         }
 
         .neural-grid {
@@ -42,7 +41,7 @@
                 linear-gradient(rgba(0,120,212,0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0,120,212,0.05) 1px, transparent 1px);
             background-size: 50px 50px;
-            pointer-events: none;
+            z-index: -1;
         }
 
         /* 导航栏 */
@@ -120,6 +119,31 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        /* 语言切换 */
+        .lang-switch {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .lang-switch a {
+            color: #8a8f99;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .lang-switch a.active {
+            color: #0078d4;
+            background: rgba(0,120,212,0.1);
+        }
+
+        .lang-switch a:hover {
+            color: white;
         }
 
         /* 主容器 */
@@ -298,55 +322,158 @@
             line-height: 1.7;
         }
 
-        /* 产品展示区 */
-        .products-section {
-            margin-bottom: 80px;
+        /* GitHub 卡片 */
+        .github-section {
+            margin: 80px 0;
         }
 
-        .product-showcase {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+        .github-card {
+            background: linear-gradient(135deg, rgba(0,120,212,0.1), rgba(127,186,0,0.1));
+            border: 1px solid #0078d4;
+            border-radius: 32px;
+            padding: 48px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .product-item {
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.3s;
+        .github-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
         }
 
-        .product-item:hover {
-            border-color: #0078d4;
-            transform: scale(1.02);
+        .github-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, #0078d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .product-image {
-            height: 160px;
-            background: linear-gradient(135deg, #1a2a3a, #0a1a2a);
-            display: flex;
+        .github-description {
+            font-size: 18px;
+            color: #8a8f99;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .github-link {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: #0078d4;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .product-info {
-            padding: 24px;
-        }
-
-        .product-name {
+            gap: 16px;
+            background: #24292e;
+            color: white;
+            text-decoration: none;
+            padding: 18px 48px;
+            border-radius: 40px;
             font-size: 20px;
             font-weight: 600;
-            margin-bottom: 8px;
-            color: white;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        .product-desc {
-            font-size: 14px;
+        .github-link:hover {
+            background: #2f363d;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .github-stats {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 32px;
             color: #8a8f99;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* 文档卡片 */
+        .docs-section {
+            margin: 60px 0;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .doc-card {
+            background: rgba(0,120,212,0.05);
+            border: 1px solid rgba(0,120,212,0.2);
+            border-radius: 20px;
+            padding: 32px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doc-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(0,120,212,0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-5px);
+            border-color: #0078d4;
+            box-shadow: 0 15px 30px rgba(0,120,212,0.3);
+        }
+
+        .doc-card:hover::before {
+            opacity: 1;
+        }
+
+        .doc-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .doc-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .doc-desc {
+            color: #8a8f99;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .doc-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            color: #0078d4;
+        }
+
+        .doc-badge {
+            background: #0078d4;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: inline-block;
         }
 
         /* 页脚 */
@@ -355,6 +482,7 @@
             backdrop-filter: blur(10px);
             border-top: 1px solid rgba(0,120,212,0.3);
             padding: 48px 0 24px;
+            margin-top: 60px;
         }
 
         .footer-content {
@@ -399,31 +527,6 @@
             font-size: 14px;
         }
 
-        /* 语言切换 */
-        .lang-switch {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .lang-switch a {
-            color: #8a8f99;
-            text-decoration: none;
-            font-size: 14px;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-
-        .lang-switch a.active {
-            color: #0078d4;
-            background: rgba(0,120,212,0.1);
-        }
-
-        .lang-switch a:hover {
-            color: white;
-        }
-
         /* 响应式 */
         @media (max-width: 768px) {
             .navbar {
@@ -451,13 +554,21 @@
                 justify-content: center;
             }
 
-            .product-showcase {
-                grid-template-columns: 1fr;
+            .github-card {
+                padding: 32px 24px;
             }
 
-            .footer-content {
+            .github-title {
+                font-size: 28px;
+            }
+
+            .github-link {
+                padding: 14px 32px;
+                font-size: 18px;
+            }
+
+            .docs-grid {
                 grid-template-columns: 1fr;
-                text-align: center;
             }
         }
     </style>
@@ -470,18 +581,18 @@
     <nav class="navbar">
         <div class="logo">
             <div class="logo-icon">Ω</div>
-            <div class="logo-text">Deep Learning Corp</div>
+            <div class="logo-text">Omege UOS</div>
         </div>
         <div class="nav-links">
             <a href="index.html">首页</a>
-            <a href="#products">产品</a>
-            <a href="#research">研究</a>
-            <a href="#about">关于</a>
-            <a href="#contact">联系</a>
+            <a href="#features">特性</a>
+            <a href="#docs">文档</a>
+            <a href="buy.html">购买</a>
+            <a href="https://github.com/deeplearning-corporation" target="_blank">GitHub</a>
         </div>
         <div class="lang-switch">
-            <a href="#" class="active">中文</a>
-            <a href="#">EN</a>
+            <a href="/en-us/index.html">EN</a>
+            <a href="/zh-hans/index.html" class="active">中文</a>
         </div>
     </nav>
 
@@ -490,12 +601,12 @@
         <!-- Hero 区域 -->
         <div class="hero">
             <div class="hero-content">
-                <div class="hero-badge">⚡ Omege UOS 深度学习企业</div>
-                <h1 class="hero-title">Deep Learning Corporation</h1>
-                <p class="hero-subtitle">专注于下一代神经网络架构与自制操作系统深度融合，打造高效、可解释的AI解决方案。</p>
+                <div class="hero-badge">⚡ Omege UOS · 自制操作系统</div>
+                <h1 class="hero-title">Omege UOS</h1>
+                <p class="hero-subtitle">轻量、高效的自制操作系统，集成深度学习优化与现代架构设计。完全开源，欢迎参与贡献。</p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn btn-primary">探索产品</a>
-                    <a href="#" class="btn btn-outline">查看文档</a>
+                    <a href="buy.html" class="btn btn-primary">立即购买</a>
+                    <a href="https://github.com/deeplearning-corporation" target="_blank" class="btn btn-outline">GitHub仓库</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -503,55 +614,96 @@
             </div>
         </div>
 
-        <!-- 特性卡片 -->
-        <h2 class="section-title">核心技术</h2>
-        <p class="section-subtitle">将深度学习与操作系统底层结合，释放硬件全部潜力</p>
-        
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🧠</div>
-                <h3 class="feature-title">神经架构搜索</h3>
-                <p class="feature-desc">自动化神经网络设计，针对Omege UOS内核优化，提升推理效率300%</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">内核级加速</h3>
-                <p class="feature-desc">深度学习算子直接集成于操作系统内核，减少用户态与内核态切换开销</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3 class="feature-title">隐私计算</h3>
-                <p class="feature-desc">基于TEE的联邦学习框架，数据不出本地即可完成模型训练</p>
+        <!-- GitHub 专区 -->
+        <div class="github-section">
+            <div class="github-card">
+                <div class="github-icon">🐙</div>
+                <h2 class="github-title">deeplearning-corporation</h2>
+                <p class="github-description">
+                    欢迎访问我们的 GitHub 组织！所有源代码、文档、示例项目都在这里开源。
+                    点击下方按钮进入组织主页。
+                </p>
+                <a href="https://github.com/deeplearning-corporation" target="_blank" class="github-link">
+                    <span>🔗</span>
+                    <span>github.com/deeplearning-corporation</span>
+                </a>
+                <div class="github-stats">
+                    <div class="stat-item">
+                        <span>📦</span> 12 仓库
+                    </div>
+                    <div class="stat-item">
+                        <span>⭐</span> 2.3k Stars
+                    </div>
+                    <div class="stat-item">
+                        <span>👥</span> 15 贡献者
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- 产品展示区 -->
-        <div id="products" class="products-section">
-            <h2 class="section-title">产品矩阵</h2>
-            <p class="section-subtitle">为不同场景打造的深度学习解决方案</p>
+        <!-- 文档区域 -->
+        <div id="docs" class="docs-section">
+            <h2 class="section-title">文档中心</h2>
+            <p class="section-subtitle">Omege UOS 完整文档与使用指南</p>
             
-            <div class="product-showcase">
-                <div class="product-item">
-                    <div class="product-image">🧬</div>
-                    <div class="product-info">
-                        <h3 class="product-name">Omege-Neuron</h3>
-                        <p class="product-desc">边缘计算推理芯片，支持INT8/FP8混合精度，功耗仅2W</p>
+            <div class="docs-grid">
+                <!-- Word 文档卡片 -->
+                <a href="/docs/docs.docx" class="doc-card" download>
+                    <div class="doc-icon">📘</div>
+                    <div class="doc-title">用户指南</div>
+                    <div class="doc-desc">包含 Omege UOS 的安装、配置和高级使用的完整文档</div>
+                    <div class="doc-meta">
+                        <span>📄 docs.docx</span>
+                        <span>⬇️ 下载文档</span>
                     </div>
-                </div>
-                <div class="product-item">
-                    <div class="product-image">🌐</div>
-                    <div class="product-info">
-                        <h3 class="product-name">DL-Studio</h3>
-                        <p class="product-desc">可视化深度学习开发环境，内置Omege UOS专用编译器</p>
+                    <div style="margin-top: 16px;">
+                        <span class="doc-badge">更新于 2026-02-28</span>
                     </div>
-                </div>
-                <div class="product-item">
-                    <div class="product-image">⚙️</div>
-                    <div class="product-info">
-                        <h3 class="product-name">Core-AI</h3>
-                        <p class="product-desc">操作系统级AI服务框架，提供标准化推理接口</p>
+                </a>
+
+                <!-- GitHub 文档卡片 -->
+                <a href="https://github.com/deeplearning-corporation/docs" target="_blank" class="doc-card">
+                    <div class="doc-icon">📚</div>
+                    <div class="doc-title">在线文档</div>
+                    <div class="doc-desc">GitHub 上的完整文档仓库，包含 API 参考和开发指南</div>
+                    <div class="doc-meta">
+                        <span>🌐 GitHub</span>
+                        <span>→</span>
                     </div>
-                </div>
+                </a>
+
+                <!-- 示例代码卡片 -->
+                <a href="https://github.com/deeplearning-corporation/examples" target="_blank" class="doc-card">
+                    <div class="doc-icon">💻</div>
+                    <div class="doc-title">示例代码</div>
+                    <div class="doc-desc">丰富的示例代码，帮助您快速上手 Omege UOS 开发</div>
+                    <div class="doc-meta">
+                        <span>📁 examples</span>
+                        <span>→</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 特性卡片 -->
+        <h2 class="section-title">核心特性</h2>
+        <p class="section-subtitle">Omege UOS 的独特之处</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">轻量级内核</h3>
+                <p class="feature-desc">极简设计，只包含必要组件，启动时间小于2秒</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3 class="feature-title">深度学习就绪</h3>
+                <p class="feature-desc">针对神经网络推理和训练工作负载预优化</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3 class="feature-title">安全设计</h3>
+                <p class="feature-desc">内置内存保护和进程隔离机制</p>
             </div>
         </div>
     </div>
@@ -560,42 +712,33 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-col">
-                <h4>Deep Learning Corp</h4>
+                <h4>Omege UOS</h4>
                 <ul>
                     <li><a href="#">关于我们</a></li>
                     <li><a href="#">新闻动态</a></li>
-                    <li><a href="#">加入我们</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>产品</h4>
-                <ul>
-                    <li><a href="#">Omege-Neuron</a></li>
-                    <li><a href="#">DL-Studio</a></li>
-                    <li><a href="#">Core-AI</a></li>
+                    <li><a href="#">联系我们</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>资源</h4>
                 <ul>
-                    <li><a href="#">文档中心</a></li>
-                    <li><a href="#">API参考</a></li>
-                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#docs">文档中心</a></li>
+                    <li><a href="https://github.com/deeplearning-corporation" target="_blank">GitHub</a></li>
+                    <li><a href="#">社区</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>联系</h4>
+                <h4>法律</h4>
                 <ul>
-                    <li><a href="#">contact@dl-corp.io</a></li>
-                    <li><a href="#">开发者社区</a></li>
-                    <li><a href="#">技术支持</a></li>
+                    <li><a href="#">隐私政策</a></li>
+                    <li><a href="#">使用条款</a></li>
+                    <li><a href="#">许可证</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 Deep Learning Corporation · 基于 Omege UOS 构建 · 京ICP备2026023586号</p>
+            <p>© 2026 Omege UOS · 自制操作系统 · <a href="https://github.com/deeplearning-corporation" target="_blank" style="color: #0078d4; text-decoration: none;">GitHub</a></p>
         </div>
     </footer>
 </body>
-
 </html>
