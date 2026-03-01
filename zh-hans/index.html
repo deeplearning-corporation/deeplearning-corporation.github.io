@@ -322,6 +322,80 @@
             line-height: 1.7;
         }
 
+        /* GitHub 卡片 */
+        .github-section {
+            margin: 80px 0;
+        }
+
+        .github-card {
+            background: linear-gradient(135deg, rgba(0,120,212,0.1), rgba(127,186,0,0.1));
+            border: 1px solid #0078d4;
+            border-radius: 32px;
+            padding: 48px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .github-icon {
+            font-size: 80px;
+            margin-bottom: 24px;
+        }
+
+        .github-title {
+            font-size: 36px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, #0078d4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .github-description {
+            font-size: 18px;
+            color: #8a8f99;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: #24292e;
+            color: white;
+            text-decoration: none;
+            padding: 18px 48px;
+            border-radius: 40px;
+            font-size: 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .github-link:hover {
+            background: #2f363d;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        }
+
+        .github-stats {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 32px;
+            color: #8a8f99;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         /* 文档卡片 */
         .docs-section {
             margin: 60px 0;
@@ -480,6 +554,19 @@
                 justify-content: center;
             }
 
+            .github-card {
+                padding: 32px 24px;
+            }
+
+            .github-title {
+                font-size: 28px;
+            }
+
+            .github-link {
+                padding: 14px 32px;
+                font-size: 18px;
+            }
+
             .docs-grid {
                 grid-template-columns: 1fr;
             }
@@ -501,6 +588,7 @@
             <a href="#features">特性</a>
             <a href="#docs">文档</a>
             <a href="buy.html">购买</a>
+            <a href="https://github.com/deeplearning-corporation" target="_blank">GitHub</a>
         </div>
         <div class="lang-switch">
             <a href="/en-us/index.html">EN</a>
@@ -515,10 +603,10 @@
             <div class="hero-content">
                 <div class="hero-badge">⚡ Omege UOS · 自制操作系统</div>
                 <h1 class="hero-title">Omege UOS</h1>
-                <p class="hero-subtitle">轻量、高效的自制操作系统，集成深度学习优化与现代架构设计</p>
+                <p class="hero-subtitle">轻量、高效的自制操作系统，集成深度学习优化与现代架构设计。完全开源，欢迎参与贡献。</p>
                 <div class="hero-buttons">
                     <a href="buy.html" class="btn btn-primary">立即购买</a>
-                    <a href="#docs" class="btn btn-outline">阅读文档</a>
+                    <a href="https://github.com/deeplearning-corporation" target="_blank" class="btn btn-outline">GitHub仓库</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -526,13 +614,40 @@
             </div>
         </div>
 
-        <!-- 文档区域（可打开文档） -->
+        <!-- GitHub 专区 -->
+        <div class="github-section">
+            <div class="github-card">
+                <div class="github-icon">🐙</div>
+                <h2 class="github-title">deeplearning-corporation</h2>
+                <p class="github-description">
+                    欢迎访问我们的 GitHub 组织！所有源代码、文档、示例项目都在这里开源。
+                    点击下方按钮进入组织主页。
+                </p>
+                <a href="https://github.com/deeplearning-corporation" target="_blank" class="github-link">
+                    <span>🔗</span>
+                    <span>github.com/deeplearning-corporation</span>
+                </a>
+                <div class="github-stats">
+                    <div class="stat-item">
+                        <span>📦</span> 12 仓库
+                    </div>
+                    <div class="stat-item">
+                        <span>⭐</span> 2.3k Stars
+                    </div>
+                    <div class="stat-item">
+                        <span>👥</span> 15 贡献者
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文档区域 -->
         <div id="docs" class="docs-section">
             <h2 class="section-title">文档中心</h2>
             <p class="section-subtitle">Omege UOS 完整文档与使用指南</p>
             
             <div class="docs-grid">
-                <!-- Word 文档卡片（可下载/打开） -->
+                <!-- Word 文档卡片 -->
                 <a href="/docs/docs.docx" class="doc-card" download>
                     <div class="doc-icon">📘</div>
                     <div class="doc-title">用户指南</div>
@@ -546,24 +661,24 @@
                     </div>
                 </a>
 
-                <!-- API 文档卡片 -->
-                <a href="#" class="doc-card">
-                    <div class="doc-icon">⚙️</div>
-                    <div class="doc-title">API 参考</div>
-                    <div class="doc-desc">为开发者提供的详细API文档，帮助您在Omege UOS上构建应用</div>
+                <!-- GitHub 文档卡片 -->
+                <a href="https://github.com/deeplearning-corporation/docs" target="_blank" class="doc-card">
+                    <div class="doc-icon">📚</div>
+                    <div class="doc-title">在线文档</div>
+                    <div class="doc-desc">GitHub 上的完整文档仓库，包含 API 参考和开发指南</div>
                     <div class="doc-meta">
-                        <span>🌐 在线浏览</span>
+                        <span>🌐 GitHub</span>
                         <span>→</span>
                     </div>
                 </a>
 
-                <!-- 开发指南卡片 -->
-                <a href="#" class="doc-card">
-                    <div class="doc-icon">🔧</div>
-                    <div class="doc-title">开发者指南</div>
-                    <div class="doc-desc">学习如何为Omege UOS贡献代码和构建自定义内核</div>
+                <!-- 示例代码卡片 -->
+                <a href="https://github.com/deeplearning-corporation/examples" target="_blank" class="doc-card">
+                    <div class="doc-icon">💻</div>
+                    <div class="doc-title">示例代码</div>
+                    <div class="doc-desc">丰富的示例代码，帮助您快速上手 Omege UOS 开发</div>
                     <div class="doc-meta">
-                        <span>📚 GitHub</span>
+                        <span>📁 examples</span>
                         <span>→</span>
                     </div>
                 </a>
@@ -608,7 +723,7 @@
                 <h4>资源</h4>
                 <ul>
                     <li><a href="#docs">文档中心</a></li>
-                    <li><a href="#">GitHub</a></li>
+                    <li><a href="https://github.com/deeplearning-corporation" target="_blank">GitHub</a></li>
                     <li><a href="#">社区</a></li>
                 </ul>
             </div>
@@ -622,7 +737,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 Omege UOS · 操作系统</p>
+            <p>© 2026 Omege UOS · 自制操作系统 · <a href="https://github.com/deeplearning-corporation" target="_blank" style="color: #0078d4; text-decoration: none;">GitHub</a></p>
         </div>
     </footer>
 </body>
