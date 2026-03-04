@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emerging 语言 - 为操作系统开发而生的系统编程语言</title>
+    <meta name="description" content="Emerging是一种为操作系统开发设计的系统编程语言，简洁、高效、安全">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/favicon.ico">
+    <!-- Font Awesome 图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="images/logo.svg" alt="Emerging Logo" height="40">
+                <span>Emerging</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">首页</a></li>
+                <li><a href="docs.html">文档</a></li>
+                <li><a href="download.html">下载</a></li>
+                <li><a href="community.html">社区</a></li>
+                <li><a href="blog.html">博客</a></li>
+                <li><a href="https://github.com/deeplearning-corporation/Emerging-Rebuild" target="_blank"><i class="fab fa-github"></i></a></li>
+            </ul>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Emerging <span class="highlight">系统编程语言</span></h1>
+                <p class="subtitle">为操作系统开发而生的新一代系统编程语言</p>
+                <p class="description">简洁 · 高效 · 安全 · 跨平台</p>
+                <div class="hero-buttons">
+                    <a href="download.html" class="btn btn-primary"><i class="fas fa-download"></i> 下载 v1.0.0</a>
+                    <a href="docs.html" class="btn btn-secondary"><i class="fas fa-book"></i> 阅读文档</a>
+                    <a href="https://github.com/deeplearning-corporation/Emerging-Rebuild" class="btn btn-outline"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="code-preview">
+                    <pre><code><span class="comment">// Hello World in Emerging</span>
+<span class="keyword">use</span> &lt;stdio.emh&gt;
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="function">println</span>(<span class="string">"Hello, World!"</span>);
+    <span class="keyword">ret</span> <span class="number">0</span>;
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特性区域 -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">为什么选择 <span class="highlight">Emerging</span>？</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>高性能</h3>
+                    <p>直接编译为机器码，零运行时开销，性能媲美C/C++</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>内存安全</h3>
+                    <p>编译时内存安全检查，消除缓冲区溢出等常见漏洞</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>简洁语法</h3>
+                    <p>清晰的语法设计，降低学习曲线，提高开发效率</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3>系统编程</h3>
+                    <p>专为操作系统、驱动程序、嵌入式系统设计</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>跨平台</h3>
+                    <p>支持Windows、Linux、macOS，一套代码多平台运行</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3>完整工具链</h3>
+                    <p>内置编译器、链接器、包管理器，开箱即用</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 代码示例区域 -->
+    <section class="code-examples">
+        <div class="container">
+            <h2 class="section-title">简洁而强大的 <span class="highlight">语法</span></h2>
+            <div class="code-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="hello">Hello World</button>
+                    <button class="tab-btn" data-tab="fib">斐波那契</button>
+                    <button class="tab-btn" data-tab="struct">结构体</button>
+                    <button class="tab-btn" data-tab="memory">内存管理</button>
+                </div>
+                <div class="tab-panels">
+                    <div class="tab-panel active" id="hello">
+                        <pre><code><span class="comment">// Hello World 示例</span>
+<span class="keyword">use</span> &lt;stdio.emh&gt;
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="function">println</span>(<span class="string">"Hello, Emerging World!"</span>);
+    
+    <span class="keyword">int</span> x = <span class="number">42</span>;
+    <span class="function">printf</span>(<span class="string">"The answer is: %d\n"</span>, x);
+    
+    <span class="keyword">ret</span> <span class="number">0</span>;
+}</code></pre>
+                    </div>
+                    <div class="tab-panel" id="fib">
+                        <pre><code><span class="comment">// 斐波那契数列</span>
+<span class="keyword">use</span> &lt;stdio.emh&gt;
+
+<span class="keyword">int</span> <span class="function">fib</span>(<span class="keyword">int</span> n) {
+    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) {
+        <span class="keyword">ret</span> n;
+    }
+    <span class="keyword">ret</span> <span class="function">fib</span>(n - <span class="number">1</span>) + <span class="function">fib</span>(n - <span class="number">2</span>);
+}
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) {
+        <span class="function">printf</span>(<span class="string">"fib(%d) = %d\n"</span>, i, <span class="function">fib</span>(i));
+    }
+    <span class="keyword">ret</span> <span class="number">0</span>;
+}</code></pre>
+                    </div>
+                    <div class="tab-panel" id="struct">
+                        <pre><code><span class="comment">// 结构体定义</span>
+<span class="keyword">struct</span> <span class="type">Point</span> {
+    <span class="keyword">int</span> x;
+    <span class="keyword">int</span> y;
+};
+
+<span class="keyword">struct</span> <span class="type">Rectangle</span> {
+    <span class="keyword">struct</span> <span class="type">Point</span> top_left;
+    <span class="keyword">struct</span> <span class="type">Point</span> bottom_right;
+};
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="keyword">struct</span> <span class="type">Point</span> p = {<span class="number">10</span>, <span class="number">20</span>};
+    <span class="function">printf</span>(<span class="string">"Point: (%d, %d)\n"</span>, p.x, p.y);
+    <span class="keyword">ret</span> <span class="number">0</span>;
+}</code></pre>
+                    </div>
+                    <div class="tab-panel" id="memory">
+                        <pre><code><span class="comment">// 内存管理</span>
+<span class="keyword">use</span> &lt;stdio.emh&gt;
+<span class="keyword">use</span> &lt;memory.emh&gt;
+
+<span class="keyword">int</span> <span class="function">main</span>() {
+    <span class="comment">// 动态分配内存</span>
+    <span class="keyword">int</span>* arr = (<span class="keyword">int</span>*)<span class="function">malloc</span>(<span class="number">10</span> * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));
+    
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) {
+        arr[i] = i * i;
+    }
+    
+    <span class="function">free</span>(arr);
+    <span class="keyword">ret</span> <span class="number">0</span>;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 统计数字 -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">下载量</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">贡献者</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3K+</div>
+                    <div class="stat-label">GitHub Stars</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">企业用户</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 生态系统 -->
+    <section class="ecosystem">
+        <div class="container">
+            <h2 class="section-title">丰富的 <span class="highlight">生态系统</span></h2>
+            <div class="ecosystem-grid">
+                <div class="eco-card">
+                    <i class="fas fa-book"></i>
+                    <h3>标准库</h3>
+                    <p>包含IO、字符串、数学、内存管理等模块</p>
+                </div>
+                <div class="eco-card">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>包管理器</h3>
+                    <p>Emerging Package Manager (epm)</p>
+                </div>
+                <div class="eco-card">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>IDE插件</h3>
+                    <p>支持VSCode、Vim、Emacs等编辑器</p>
+                </div>
+                <div class="eco-card">
+                    <i class="fas fa-flask"></i>
+                    <h3>测试框架</h3>
+                    <p>内置单元测试和基准测试</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 新闻和博客 -->
+    <section class="news">
+        <div class="container">
+            <h2 class="section-title">最新 <span class="highlight">动态</span></h2>
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-date">2026-03-04</div>
+                    <h3>Emerging 1.0.0 正式发布</h3>
+                    <p>经过两年的开发，Emerging 1.0.0 版本正式发布，带来了完整的工具链和标准库...</p>
+                    <a href="blog/emerging-1.0-released.html" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                </article>
+                <article class="news-card">
+                    <div class="news-date">2026-02-15</div>
+                    <h3>Deep Learning Corporation 宣布赞助 Emerging 项目</h3>
+                    <p>Deep Learning Corporation 正式成为 Emerging 语言的主要赞助商，支持其长期发展...</p>
+                    <a href="blog/deeplearning-sponsor.html" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                </article>
+                <article class="news-card">
+                    <div class="news-date">2026-01-20</div>
+                    <h3>Emerging 用户大会 2026 将于6月举行</h3>
+                    <p>首届 Emerging 用户大会将于2026年6月15-16日在上海举行，现在开始报名...</p>
+                    <a href="blog/user-conference-2026.html" class="read-more">阅读更多 <i class="fas fa-arrow-right"></i></a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 赞助商 -->
+    <section class="sponsors">
+        <div class="container">
+            <h2 class="section-title">金牌 <span class="highlight">赞助商</span></h2>
+            <div class="sponsors-grid">
+                <div class="sponsor-card">
+                    <img src="images/sponsors/deeplearning.png" alt="Deep Learning Corporation">
+                </div>
+                <div class="sponsor-card">
+                    <img src="images/sponsors/cloudtech.png" alt="CloudTech">
+                </div>
+                <div class="sponsor-card">
+                    <img src="images/sponsors/syssoft.png" alt="SysSoft">
+                </div>
+                <div class="sponsor-card">
+                    <img src="images/sponsors/openfoundation.png" alt="Open Source Foundation">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 开始使用 -->
+    <section class="get-started">
+        <div class="container">
+            <h2>开始使用 Emerging</h2>
+            <p>只需一行命令，即可安装 Emerging 工具链</p>
+            <div class="install-code">
+                <pre><code>curl -sSL https://get.emerging-lang.org | bash</code></pre>
+                <button class="copy-btn" onclick="copyToClipboard('curl -sSL https://get.emerging-lang.org | bash')">
+                    <i class="far fa-copy"></i> 复制
+                </button>
+            </div>
+            <div class="get-started-buttons">
+                <a href="download.html" class="btn btn-primary"><i class="fas fa-download"></i> 下载</a>
+                <a href="docs/getting-started.html" class="btn btn-secondary"><i class="fas fa-rocket"></i> 快速入门</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="images/logo.svg" alt="Emerging Logo" height="30">
+                        <span>Emerging</span>
+                    </div>
+                    <p>为操作系统开发而生的系统编程语言</p>
+                    <div class="social-links">
+                        <a href="https://github.com/deeplearning-corporation/Emerging-Rebuild"><i class="fab fa-github"></i></a>
+                        <a href="https://twitter.com/emerging_lang"><i class="fab fa-twitter"></i></a>
+                        <a href="https://discord.gg/emerging"><i class="fab fa-discord"></i></a>
+                        <a href="https://t.me/emerging_lang"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>文档</h4>
+                    <ul>
+                        <li><a href="docs/getting-started.html">快速入门</a></li>
+                        <li><a href="docs/language-guide.html">语言指南</a></li>
+                        <li><a href="docs/stdlib.html">标准库</a></li>
+                        <li><a href="docs/examples.html">示例</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>社区</h4>
+                    <ul>
+                        <li><a href="community/contributing.html">贡献指南</a></li>
+                        <li><a href="community/team.html">核心团队</a></li>
+                        <li><a href="community/code-of-conduct.html">行为准则</a></li>
+                        <li><a href="https://github.com/deeplearning-corporation/Emerging-Rebuild/issues">问题反馈</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>关于</h4>
+                    <ul>
+                        <li><a href="about/news.html">新闻</a></li>
+                        <li><a href="about/sponsors.html">赞助商</a></li>
+                        <li><a href="about/faq.html">常见问题</a></li>
+                        <li><a href="about/contact.html">联系我们</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Deep Learning Corporation. All rights reserved.</p>
+                <p>Emerging 语言项目由 Deep Learning Corporation 赞助和支持</p>
+                <p><a href="privacy.html">隐私政策</a> | <a href="terms.html">服务条款</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
