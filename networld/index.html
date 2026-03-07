@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetWorld 官方 - 跑酷文明</title>
+    <meta name="description" content="NetWorld - 1:1复刻MC跑酷文明的3D体素游戏。完整的阶层系统、食物机制、PVP对决，完全免费！">
+    <link rel="icon" type="image/x-icon" href="images/website-icon.ico">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.png" alt="NetWorld Logo" class="logo-img">
+                <span class="logo-text">NetWorld</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="active">首页</a></li>
+                <li><a href="#features">特色</a></li>
+                <li><a href="#screenshot">截图</a></li>
+                <li><a href="#download">下载</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 + 截图合一 -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>NetWorld <span class="highlight">跑酷文明</span></h1>
+            <p class="hero-subtitle">🎮 1:1 复刻 MC 跑酷文明 | 完全免费</p>
+            <p class="hero-description">从菜鸟到创世神，在方块世界中体验完整的跑酷文明。</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn-primary">📥 立即下载</a>
+                <a href="#features" class="btn-secondary">📖 游戏特色</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value" id="downloadCount">12,345</span>
+                    <span class="stat-label">下载</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="playerCount">8,901</span>
+                    <span class="stat-label">玩家</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value" id="avgRating">4.8</span>
+                    <span class="stat-label">评分</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="images/game-screenshot1.png" alt="NetWorld 游戏截图" class="screenshot">
+            <div class="image-caption">⚡ 实机截图：螺旋平台阵列 ⚡</div>
+        </div>
+    </section>
+
+    <!-- 特色卡片 (3个) -->
+    <section id="features" class="features">
+        <h2>游戏特色</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🏃</div>
+                <h3>7大阶层</h3>
+                <p>菜鸟 → 专家 → 大师 → 冠军 → 传奇 → 不朽 → 创世神</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍗</div>
+                <h3>食物机制</h3>
+                <p>跳远得鸡肉，跳高得牛肉，随时间消耗</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚔️</div>
+                <h3>PVP对决</h3>
+                <p>与NPC进行跑酷对决，赢取奖励</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 阶层速览 (精简) -->
+    <section class="rank-preview">
+        <h2>阶层速览</h2>
+        <div class="rank-badges">
+            <span class="rank-badge">👶 菜鸟</span>
+            <span class="rank-badge">🥈 专家</span>
+            <span class="rank-badge">🥇 大师</span>
+            <span class="rank-badge">🏆 冠军</span>
+            <span class="rank-badge">🌟 传奇</span>
+            <span class="rank-badge">♾️ 不朽</span>
+            <span class="rank-badge">✨ 创世神</span>
+        </div>
+    </section>
+
+    <!-- 下载区域 (核心) -->
+    <section id="download" class="download-section">
+        <h2>⬇️ 下载游戏</h2>
+        <div class="download-card">
+            <div class="download-icon">📦</div>
+            <h3>NetWorld 游戏包</h3>
+            <div class="file-info">
+                <span>📁 game.zip</span>
+                <span>📏 150 KB</span>
+                <span>📅 2025-03-07</span>
+            </div>
+            <div class="file-structure">
+                <pre>
+game.zip 解压后：
+game/
+├── game.jar
+└── icons/
+    └── logo.ico
+                </pre>
+            </div>
+            <button class="btn-download-large" onclick="downloadGame()">
+                ⬇️ 下载 game.zip (150 KB)
+            </button>
+            <p class="download-note">解压后直接运行 game.jar (需要Java 8+)</p>
+            <a href="#" class="java-link" onclick="showJavaHelp()">❓ 没有Java？</a>
+        </div>
+    </section>
+
+    <!-- 系统要求 (简洁) -->
+    <section class="requirements-mini">
+        <h3>⚙️ 最低要求</h3>
+        <div class="req-tags">
+            <span>Windows 7+</span>
+            <span>1.5 GHz</span>
+            <span>1 GB 内存</span>
+            <span>OpenGL 2.0</span>
+            <span>Java 8+</span>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <p>© 2025 NetWorld. 完全免费 · <a href="#">隐私政策</a> · <a href="#">联系我们</a></p>
+    </footer>
+
+    <!-- 通知区域 -->
+    <div id="notification" class="notification"></div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
