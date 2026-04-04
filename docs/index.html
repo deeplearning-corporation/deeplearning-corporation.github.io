@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omege UOS - 文档中心 | APP 开发 & ELF 编译 & ISO 集成</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        :root {
+            --primary: #0077ff;
+            --primary-dark: #005ee5;
+            --bg: #ffffff;
+            --sidebar: #f8f9fa;
+            --text: #1f2937;
+            --text-secondary: #6b7280;
+            --border: #e5e7eb;
+            --code-bg: #1e293b;
+            --code-color: #f1f5f9;
+            --hover: #eff6ff;
+            --shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .dark-mode {
+            --primary: #3b82f6;
+            --bg: #0f172a;
+            --sidebar: #1e293b;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border: #334155;
+            --hover: #1e293b;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            transition: 0.3s;
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* 顶部导航 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            z-index: 999;
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        /* 布局 */
+        .wrapper {
+            display: flex;
+            margin-top: 60px;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* 侧边栏 */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            position: fixed;
+            top: 60px;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            transition: 0.3s;
+        }
+
+        .sidebar-section {
+            padding: 0 20px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li a {
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar-menu li a:hover,
+        .sidebar-menu li a.active {
+            background: var(--hover);
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* 主内容 */
+        .content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 40px 60px;
+            max-width: 1000px;
+        }
+
+        .title {
+            font-size: 36px;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 26px;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section h3 {
+            font-size: 20px;
+            margin: 28px 0 12px;
+            color: var(--primary);
+        }
+
+        p {
+            margin: 12px 0;
+            font-size: 15px;
+        }
+
+        ul, ol {
+            padding-left: 24px;
+            margin: 12px 0;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        /* 代码块 */
+        .code {
+            background: var(--code-bg);
+            color: var(--code-color);
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 16px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .code .cmd { color: #a78bfa; }
+        .code .green { color: #4ade80; }
+        .code .orange { color: #fb923c; }
+
+        /* 提示框 */
+        .tip {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--primary);
+            padding: 16px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        /* 回到顶部 */
+        .back-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+        }
+
+        .back-top.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+                z-index: 998;
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .content {
+                margin-left: 0;
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 顶部导航 -->
+<div class="navbar">
+    <div class="logo">Omege <span>UOS</span></div>
+    <div class="nav-right">
+        <button class="btn btn-outline" id="themeBtn">暗黑模式</button>
+        <button class="btn" id="repoBtn">官方仓库</button>
+    </div>
+</div>
+
+<!-- 主体布局 -->
+<div class="wrapper">
+    <!-- 侧边栏 -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-title">文档中心</div>
+            <ul class="sidebar-menu">
+                <li><a href="#intro" class="active">简介</a></li>
+                <li><a href="#clone">克隆源码</a></li>
+                <li><a href="#env">开发环境</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-title">APP 开发</div>
+            <ul class="sidebar-menu">
+                <li><a href="#app-dev">编写 APP</a></li>
+                <li><a href="#elf-build">编译为 ELF</a></li>
+                <li><a href="#test-elf">测试 ELF</a></li>
+            </ul>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-title">ISO 集成</div>
+            <ul class="sidebar-menu">
+                <li><a href="#iso-inject">放入 ISO</a></li>
+                <li><a href="#iso-make">编译生成 ISO</a></li>
+                <li><a href="#iso-run">运行 ISO</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 内容区 -->
+    <div class="content">
+        <h1 class="title">Omege UOS 文档中心</h1>
+        <p class="desc">应用开发全流程：编写 → 编译 ELF → 集成到 ISO 镜像</p>
+
+        <!-- 简介 -->
+        <section class="section" id="intro">
+            <h2>1. 项目简介</h2>
+            <p>Omege UOS 是一款轻量级、高性能的自研操作系统，原生支持 ELF 格式应用程序。</p>
+            <p>本教程将指导你完成：</p>
+            <ul>
+                <li>获取官方源码</li>
+                <li>开发原生 APP</li>
+                <li>编译为 ELF 可执行文件</li>
+                <li>将 ELF 集成到 ISO 镜像</li>
+                <li>编译并启动 Omege UOS ISO</li>
+            </ul>
+            <div class="tip">
+                官方仓库：<strong>https://github.com/deeplearning-corporation/OmegeUOS.git</strong>
+            </div>
+        </section>
+
+        <!-- 克隆源码 -->
+        <section class="section" id="clone">
+            <h2>2. 克隆官方源码</h2>
+            <p>使用 git 直接克隆 Omege UOS 完整项目：</p>
+            <div class="code">
+                <span class="cmd">git clone https://github.com/deeplearning-corporation/OmegeUOS.git</span><br>
+                cd OmegeUOS
+            </div>
+            <p>克隆完成后，你将获得：</p>
+            <ul>
+                <li>系统内核</li>
+                <li>根文件系统 rootfs</li>
+                <li>ISO 编译脚本</li>
+                <li>应用开发模板</li>
+            </ul>
+        </section>
+
+        <!-- 开发环境 -->
+        <section class="section" id="env">
+            <h2>3. 搭建开发环境</h2>
+            <h3>3.1 安装依赖</h3>
+            <div class="code">
+                # Ubuntu/Debian<br>
+                <span class="cmd">sudo apt install gcc make binutils xorriso grub-pc-bin qemu-system-x86</span>
+            </div>
+            <h3>3.2 验证编译工具</h3>
+            <div class="code">
+                gcc --version<br>
+                make --version
+            </div>
+        </section>
+
+        <!-- APP 开发 -->
+        <section class="section" id="app-dev">
+            <h2>4. 编写 Omege UOS 原生 APP</h2>
+            <p>Omege UOS 应用使用 C 语言开发，编译为 32/64 位 ELF 文件。</p>
+            <h3>示例：hello.c</h3>
+            <div class="code">
+#include &lt;stdio.h&gt;<br>
+<br>
+int main() {<br>
+    &nbsp;&nbsp;<span class="green">printf("Hello, Omege UOS!\n");</span><br>
+    &nbsp;&nbsp;return 0;<br>
+}
+            </div>
+        </section>
+
+        <!-- 编译 ELF -->
+        <section class="section" id="elf-build">
+            <h2>5. 编译为 ELF 文件</h2>
+            <p>使用 GCC 直接编译为 Omege UOS 可执行的 ELF 文件：</p>
+            <div class="code">
+                <span class="cmd">gcc -m32 -o hello hello.c -nostdlib -fno-builtin</span>
+            </div>
+            <p>查看文件格式：</p>
+            <div class="code">
+                <span class="cmd">file hello</span>
+            </div>
+            <p>输出应为：<strong>ELF 32-bit LSB executable</strong></p>
+        </section>
+
+        <!-- 集成到 ISO -->
+        <section class="section" id="iso-inject">
+            <h2>6. 将 ELF 放入 ISO 镜像</h2>
+            <p>把编译好的 ELF 应用复制到系统 rootfs 目录：</p>
+            <div class="code">
+                <span class="cmd">cp hello ./iso/rootfs/usr/bin/</span>
+            </div>
+            <p>路径：<code>iso/rootfs/usr/bin/</code> 系统启动后可直接运行</p>
+        </section>
+
+        <!-- 编译 ISO -->
+        <section class="section" id="iso-make">
+            <h2>7. 编译生成 Omege UOS ISO</h2>
+            <p>运行官方构建脚本生成 ISO：</p>
+            <div class="code">
+                <span class="cmd">chmod +x build.sh</span><br>
+                <span class="cmd">./build.sh</span>
+            </div>
+            <p>构建完成后会输出：<code>omegeuos.iso</code></p>
+        </section>
+
+        <!-- 运行测试 -->
+        <section class="section" id="iso-run">
+            <h2>8. 运行 ISO 并测试 APP</h2>
+            <div class="code">
+                <span class="cmd">qemu-system-x86_64 -cdrom omegeuos.iso -m 512</span>
+            </div>
+            <p>系统启动后，直接输入应用名运行：</p>
+            <div class="code">
+                <span class="orange">hello</span>
+            </div>
+            <p>即可看到输出：<strong>Hello, Omege UOS!</strong></p>
+        </section>
+    </div>
+</div>
+
+<!-- 回到顶部 -->
+<div class="back-top" id="backTop">↑</div>
+
+<script>
+    // 暗黑模式
+    const themeBtn = document.getElementById('themeBtn');
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        themeBtn.textContent = document.body.classList.contains('dark-mode') ? '浅色模式' : '暗黑模式';
+    });
+
+    // 官方仓库跳转
+    document.getElementById('repoBtn').onclick = () => {
+        window.open('https://github.com/deeplearning-corporation/OmegeUOS', '_blank');
+    };
+
+    // 侧边栏定位
+    const links = document.querySelectorAll('.sidebar-menu a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        document.querySelectorAll('.section').forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (scrollY >= sectionTop - 100) current = section.getAttribute('id');
+        });
+        links.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').substring(1) === current) link.classList.add('active');
+        });
+    });
+
+    // 回到顶部
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+        scrollY > 300 ? backTop.classList.add('show') : backTop.classList.remove('show');
+    });
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+
+</body>
+</html>
